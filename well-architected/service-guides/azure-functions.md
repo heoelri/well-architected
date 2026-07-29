@@ -2,7 +2,7 @@
 title: Architecture Best Practices for Azure Functions
 description: Learn about Azure Well-Architected Framework design considerations and configuration recommendations for Azure Functions.
 author: PageWriter-MSFT
-ms.author: mohamad
+ms.author: prwilk
 ms.date: 11/21/2025
 ms.topic: concept-article
 ms. service: waf
@@ -61,6 +61,8 @@ Start your design strategy based on the [design review checklist for Reliability
 > - **Use Durable Functions for long-running operations:** For operations that require orchestration or long-running processes, use Durable Functions to maintain state and help ensure reliability across multiple steps.
 >
 > - **Monitor the health of your solution:** Integrate your Azure Functions solution into your overall workload health monitoring and alerting system.
+>
+> - **Validate deployment resilience on Flex Consumption:** Use the reduced interruption window from gradual instance replacement to lower deployment risk, but still test code and configuration changes against downstream dependencies and in-flight operations. Rehearse rollback for versioned workflows and other stateful integrations so partial rollouts don't expose compatibility problems only after deployment starts.
 
 ### Configuration recommendations
 
@@ -147,6 +149,8 @@ Start your design strategy based on the [design review checklist for Operational
 > - **Deploy your solution safely:** Understand the [deployment models](/azure/azure-functions/functions-deployment-technologies) available for Azure Functions and adopt the model that best meets your safe deployment practices.
 >
 > - **Plan for disaster recovery (DR):** [Implement DR strategies](/azure/reliability/reliability-functions) by using cross-region DR and availability zones for critical functions.
+>
+> - **Standardize dashboard-driven operations:** Use the built-in Grafana dashboards in the portal as a consistent starting point for monitoring many function apps. Pair dashboards with alerts, service level objectives, and runbooks so teams can interpret the signals and respond consistently.
 
 ### Configuration recommendations
 
@@ -213,3 +217,5 @@ Consider the following resources to further explore the recommendations highligh
 
 <!-- Updated: August 17, 2025 for Azure Update 498149 -->
 <!-- Updated: November 21, 2025 for Azure Update 512379 -->
+<!-- Updated: 2026-07-10 for Azure Update 562365 -->
+<!-- Updated: 2026-07-10 for Azure Update 562492 -->

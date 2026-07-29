@@ -217,6 +217,10 @@ With [Key Vault](https://azure.microsoft.com/services/key-vault/#product-overvie
 
 - **Confidential AKS worker nodes, Confidential Containers on AKS or Confidential Containers on Azure Container Instances (ACI)** offer the ability to [run and manage unmodified containers inside a TEE](/azure/confidential-computing/choose-confidential-containers-offerings) which enables customers to benefit from in-use protection. Container offerings are built-upon Confidential Virtual Machines and benefit from the same protections.
 
+- **Confidential workload profiles in Azure Container Apps** extend TEE-based data-in-use protection to managed container workloads. Use them when sensitive processing needs stronger isolation, but validate compliance prerequisites and operational readiness before rollout.
+
+  For tamper-evident audit records, Azure confidential ledger includes a localized ledger explorer that verifies the authenticity of exported ledger contents without custom security tooling. Use that verification step to preserve evidence integrity for encrypted records and audit trails.
+
 - **Application Enclave** solutions are specially built applications taking advantage of specific CPU extensions offered by virtual machine SKUs that support Intel Software Guard Extensions (SGX), these offer a very granular [Trusted Compute Base (TCB)](/azure/confidential-computing/trusted-compute-base) but require applications to be specifically coded to take advantage of the features.
 
 - **Confidential Database Services** such as [Azure Database for PostgreSQL confidential computing](/azure/postgresql/flexible-server/concepts-confidential-computing) provide hardware-based encryption for database processing operations using Intel SGX or AMD SEV-SNP secure enclaves. This enables organizations processing sensitive data to meet regulatory requirements demanding data protection in use while maintaining database performance and compatibility with existing applications.
@@ -258,3 +262,5 @@ Refer to the complete set of recommendations.
 [Security checklist](checklist.md)
 
 <!-- Updated: October 13, 2025 for Azure Update 500795 -->
+<!-- Updated: 2026-07-10 for Azure Update 560810 -->
+<!-- Updated: 2026-07-10 for Azure Update 562564 -->

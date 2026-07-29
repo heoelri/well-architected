@@ -92,7 +92,7 @@ For more information, see [Data partitioning guidance](/azure/architecture/best-
 
 ## Optimize database queries
 
-Optimizing database queries refines queries using techniques such index hints and caching. These adjustments increase efficiency and speed of data retrieval. As a result, the database has a lighter workload, resources work more effectively, and users enjoy smoother interactions. To optimize database queries, consider the following strategies:
+Optimizing database queries involves refining queries by using techniques such as index hints and caching. These adjustments increase the efficiency and speed of data retrieval. As a result, the database has a lighter workload, resources work more effectively, and users enjoy smoother interactions. To optimize database queries, consider the following strategies:
 
 - *Rewrite queries.* Review and analyze complex queries to identify opportunities to rewrite them. Consider restructuring query logic, eliminating redundant operations, or simplifying query syntax.
 
@@ -156,7 +156,7 @@ Optimizing storage load means streamlining requests to the storage system. It he
 
 ### Use caching
 
-Caching stores commonly accessed data in a fast-access storage area, making data retrieval quicker than pulling it from the main source. This technique boosts data performance by cutting down on access times and avoiding repetitive data fetches. Caching improves read speeds and user response times, especially for frequently accessed data  This method is most effective on static data or data that rarely changes.
+Caching stores commonly accessed data in a fast-access storage area, making data retrieval quicker than pulling it from the main source. This technique boosts data performance by cutting down on access times and avoiding repetitive data fetches. Caching improves read speeds and user response times, especially for frequently accessed data.  This method is most effective on static data or data that rarely changes.
 
 To ensure optimal caching efficiency, consider factors like expiration policies, eviction strategies, and managing cache size. Adjust settings, such as the time to live (TTL), for optimal performance. To use a cache to optimize storage load, consider the following strategies:
 
@@ -252,6 +252,8 @@ In SQL databases, you should regularly [reorganize or rebuild indexes](/sql/rela
 
 Azure Cosmos DB has a [default indexing policy](/azure/cosmos-db/index-policy) that indexes every property of every item and enforces range indexes for any string or number. This policy provides you with efficient query performance, and you don't have to manage indexes upfront.
 
+For read-heavy query patterns that don't match the transactional partition key, Azure Cosmos DB global secondary indexes provide read-only indexes with independent partition keys. Use them to reduce cross-partition query cost, but plan for the extra indexing design and throughput decisions.
+
 **Optimizing storage load**: Many Azure database services support read replicas. The availability and configuration of read replicas vary depending on the Azure database service. Refer to the official documentation for each service to understand the details and options.
 
 **Optimizing storage design**: Azure offers many different data stores to fit your workload needs. [Understand data store types](/azure/architecture/guide/technology-choices/data-store-overview) and [select an Azure data store for your application](/azure/architecture/guide/technology-choices/data-store-decision-tree).
@@ -282,3 +284,4 @@ Refer to the complete set of recommendations.
 
 > [!div class="nextstepaction"] 
 > [Performance Efficiency checklist](checklist.md) 
+<!-- Updated: 2026-07-10 for Azure Update 562799 -->

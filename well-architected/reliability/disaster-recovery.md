@@ -142,6 +142,10 @@ For IaaS (infrastructure as a service) systems, use [Azure Site Recovery](/azure
 - [Azure Event Hubs](/azure/event-hubs/event-hubs-geo-dr?tabs=portal)
 - [Azure Managed Redis](/azure/reliability/reliability-managed-redis)
 
+Azure Functions Flex Consumption uses rolling updates that replace instances gradually, which can reduce deployment interruption during recovery-related releases or hotfixes. Still, test downstream dependencies and rollback paths because reduced interruption doesn't remove recovery risk.
+
+Azure Cosmos DB per-partition automatic failover can limit regional disruption to affected partitions so that unaffected traffic keeps flowing. Even with a smaller blast radius, validate application dependency behavior and recovery procedures for partial failover conditions.
+
 Many Azure products have built-in backup capabilities. Familiarize yourself with these capabilities and include them in recovery procedures.
 
 For IaaS (infrastructure as a service) systems, use [Azure Backup](/azure/backup/backup-overview) to facilitate backup of VMs and VM related services and some data services. Refer to the following articles for common products:
@@ -165,3 +169,5 @@ Refer to the complete set of recommendations.
 
 > [!div class="nextstepaction"] 
 > [Reliability checklist](checklist.md)
+<!-- Updated: 2026-07-10 for Azure Update 562365 -->
+<!-- Updated: 2026-07-10 for Azure Update 563042 -->

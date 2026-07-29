@@ -189,6 +189,12 @@ We recommend reading this section in the companion implementation guide: [Antipa
 
 - Virtual network flow logs now have a [native Microsoft Sentinel connector](https://aka.ms/TrafficAnalytics-with-Sentinel) that exports network telemetry to your organization's SIEM. This integration brings flow data into the same analytics plane as identity and endpoint signals, improving correlation during security investigations. Govern log volume and analytics costs as you scale ingestion.
 
+- Azure Monitor log alerts can use dynamic thresholds derived from historical behavior. Use them to scale anomaly detection across changing baselines, but validate seasonal patterns and make sure responders know the expected action.
+
+- Azure Functions includes built-in Grafana dashboards that provide immediate health views without custom setup. Use them to accelerate initial visibility, but still define SLO-driven alerts, dashboards, and runbooks.
+
+- Azure Container Apps can export OpenTelemetry data to external backends through managed integrations. Standardize destinations deliberately and govern routing, retention, and ingestion cost before you broaden telemetry distribution.
+
 ## Related links
 
 - [Instrumentation guide](../devops/monitor-instrument.md)
@@ -210,3 +216,6 @@ Refer to the complete set of recommendations.
 <!-- Updated: 2026-03-21 for Azure Update 558140 -->
 <!-- Updated: 2026-03-21 for Azure Update 558321 -->
 <!-- Updated: 2026-06-04 for Azure Update 564689 -->
+<!-- Updated: 2026-07-10 for Azure Update 561984 -->
+<!-- Updated: 2026-07-10 for Azure Update 562492 -->
+<!-- Updated: 2026-07-10 for Azure Update 562554 -->

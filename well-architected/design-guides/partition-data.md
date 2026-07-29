@@ -256,6 +256,8 @@ Online migration is more complex but less disruptive compared to offline migrati
 
 The following sections describe recommendations for partitioning data that's stored in Azure services.
 
+In Azure Cosmos DB, global secondary indexes synchronize from source containers into read-only containers that use their own partition keys. Use them to improve latency and RU efficiency for query patterns that don't align with the transactional container, but account for the added throughput and design decisions.
+
 ### Partition in Azure SQL Database
 
 A single SQL database has a limit to the volume of data that it can contain. Throughput is constrained by architectural factors and the number of concurrent connections that it supports.
@@ -352,3 +354,4 @@ Data partitioning introduces some challenges and complexities that you need to c
 - [Understand data store models](/azure/architecture/guide/technology-choices/data-store-overview)
 - [Use elastic pools to manage and scale multiple databases in SQL Database](/azure/azure-sql/database/elastic-pool-overview)
 - [What is SQL Data Sync for Azure?](/azure/azure-sql/database/sql-data-sync-data-sql-server-sql-database) 
+<!-- Updated: 2026-07-10 for Azure Update 562799 -->

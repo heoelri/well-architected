@@ -2,10 +2,9 @@
 title: Architecture Best Practices for Log Analytics
 description: Learn about the architectural best practices according to the Azure Well-Architected Framework for Log Analytics workspaces in Azure Monitor. 
 ms.topic: concept-article
-author: bwren
-ms.author: bwren
+author: PageWriter-MSFT
+ms.author: prwilk
 ms.date: 05/27/2026
-ms.reviewer: bwren
 azure.category:
   - management-and-governance
 ---
@@ -176,6 +175,10 @@ Start your design strategy based on the [design review checklist for Operational
 >    For this reason, leave workspaces out of deployment packages that replace infrastructure during updates, and only perform in-place upgrades on the workspaces.
 >
 > - **Ensure that the operations staff is trained on Kusto Query Language:** Train staff to create or modify queries when needed. If operators are unable to write or modify queries, it can slow critical troubleshooting or other functions because operators must rely on other teams to do that work for them.
+>
+> - **Use simple alerts for clear operational signals:** Apply simple log alerts when operators need fast detection from row-level events without maintaining complex queries. Tune scope, suppression, and action routing so alerts remain actionable and don't create noise.
+>
+> - **Validate dynamic thresholds against real workload patterns:** Use historical baselines to scale alerting across many rules, but review seasonal changes, maintenance windows, and deployment patterns before you rely on learned thresholds. Update response procedures when the baseline shifts so anomaly alerts still drive the right action.
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Configuration recommendations
@@ -250,3 +253,5 @@ For more information, see [Advisor](/azure/advisor).
 > [Best practices for a complete deployment of Azure Monitor](/azure/cloud-adoption-framework/manage/monitor)
 
 <!-- Updated: August 5, 2025 for Azure Update 498462, 498558 -->
+<!-- Updated: 2026-07-10 for Azure Update 561978 -->
+<!-- Updated: 2026-07-10 for Azure Update 561984 -->

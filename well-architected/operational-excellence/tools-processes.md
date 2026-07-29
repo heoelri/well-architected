@@ -173,6 +173,12 @@ For more information on using naming conventions for your cloud resources, see [
 
 - [Azure Resource Manager templates](/azure/azure-resource-manager/templates/overview) and [Bicep](/azure/azure-resource-manager/bicep/overview) are Azure-native tools that you can use to deploy IaC. [Terraform](/azure/developer/terraform/overview) is another Azure-supported IaC tool that you can use to deploy and manage infrastructure.
 
+- Use the Azure Cosmos DB emulator in Docker-based local environments to shift query, schema, and integration testing left across platforms. This approach can reduce cloud dependency during early development, but you still need production validation for parity-sensitive behavior.
+
+- Azure API Management workspaces can use the built-in gateway across more tiers, which lowers the cost of team-based API governance on shared platforms. Design policy ownership, shared boundaries, and runtime isolation before multiple teams depend on one instance.
+
+- For large API estates, Azure API Management wildcard hostnames and certificates reduce repetitive hostname administration. Even when domain management is simpler, keep certificate lifecycle ownership and domain governance explicit.
+
 - [Visual Studio](/visualstudio/windows) is a robust development tool that integrates with Azure and supports many languages.
 
 - [GitHub Copilot](https://docs.github.com/copilot/overview-of-github-copilot/about-github-copilot-for-individuals) is an AI service that acts as a pair programmer and provides autocomplete style suggestions as you code. Copilot is available as an extension in Visual Studio and several other development tools.
@@ -204,3 +210,6 @@ Refer to the complete set of recommendations.
 
 > [!div class="nextstepaction"]
 > [Operational Excellence checklist](checklist.md)
+<!-- Updated: 2026-07-10 for Azure Update 562754 -->
+<!-- Updated: 2026-07-10 for Azure Update 562848 -->
+<!-- Updated: 2026-07-10 for Azure Update 562894 -->

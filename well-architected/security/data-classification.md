@@ -116,6 +116,12 @@ Azure SQL Database, Azure SQL Managed Instance, and Azure Synapse Analytics offe
 
 For data classified as highly confidential or requiring protection during processing operations, Azure Database for PostgreSQL supports [confidential computing](/azure/postgresql/flexible-server/concepts-confidential-computing) to provide hardware-based encryption for data in use. This technology enables organizations to protect sensitive data during processing operations while maintaining database performance, supporting compliance with stringent regulatory requirements for data protection in highly regulated industries.
 
+For regulated audit workflows, Azure confidential ledger provides a localized ledger explorer that can import exported ledger files and verify their authenticity without custom verification tooling. Use that capability when classified data processes require strong chain-of-custody evidence.
+
+If you process classified data in containers, Azure Container Apps confidential workload profiles can add TEE-based isolation for sensitive operations. Before you adopt them, validate compliance requirements, rollout constraints, and operational readiness.
+
+When you use Azure Cosmos DB for sensitive records, the all versions and deletes change feed can capture creates, updates, deletes, and TTL expirations for audit and forensic workflows. Govern retention and access carefully because historical mutations can expose sensitive data beyond the primary data path.
+
 ## Example
 
 This example builds on the Information Technology (IT) environment established in the [security baseline (SE:01)](./establish-baseline.md). The example diagram below shows data stores where data is classified.   
@@ -155,3 +161,6 @@ Refer to the complete set of recommendations.
 > [Security checklist](checklist.md)
 
 <!-- Updated: October 13, 2025 for Azure Update 500795 -->
+<!-- Updated: 2026-07-10 for Azure Update 560810 -->
+<!-- Updated: 2026-07-10 for Azure Update 562564 -->
+<!-- Updated: 2026-07-10 for Azure Update 562971 -->

@@ -303,6 +303,8 @@ The following antipatterns commonly undermine what monitoring can do for workloa
 
   - [Azure Monitor Alerts](/azure/azure-monitor/platform/alerts-overview) enables intelligent alerting with action groups, notification routing, and automated responses.
 
+    Use simple log alerts when row-level evaluation helps you detect specific failure records faster. Tune those rules carefully to control noise and preserve clear operator action.
+
 **Application Performance Monitoring:**
 
 - [Application Insights](/azure/azure-monitor/app/app-insights-overview) provides APM capabilities with end-to-end tracing, dependency mapping, and user behavior analytics.
@@ -319,6 +321,10 @@ The following antipatterns commonly undermine what monitoring can do for workloa
 
 - [Azure Container Insights](/azure/azure-monitor/insights/container-insights-overview) offers container-specific monitoring with cluster health, node performance, and pod-level insights.
 
+  For Azure Container Apps, managed OpenTelemetry export can standardize telemetry delivery to multiple backends when teams need a portable pipeline. Govern routing, retention, and ingestion cost before you enable more destinations.
+
+  ContainerAppHTTPLogs adds request-level traffic visibility that can improve traffic analysis and troubleshooting. Decide up front how much detail to retain because request logs can grow quickly and might expose sensitive request data.
+
 - [Network Watcher](/azure/network-watcher/network-watcher-monitoring-overview) provides network-specific monitoring, diagnostics, and analytics for Azure networking resources.
 
 ## Related links
@@ -327,3 +333,6 @@ The following antipatterns commonly undermine what monitoring can do for workloa
 - [Create an effective incident management plan to manage disruptions](./incident-management.md)
 - [Performance efficiency design principles](../performance-efficiency/principles.md)
 - [Recommendations for designing a reliable monitoring and alerting strategy](../reliability/monitoring.md)
+<!-- Updated: 2026-07-10 for Azure Update 561978 -->
+<!-- Updated: 2026-07-10 for Azure Update 562554 -->
+<!-- Updated: 2026-07-10 for Azure Update 562559 -->
