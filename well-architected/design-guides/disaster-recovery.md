@@ -211,6 +211,8 @@ A strong runbook replaces abstract strategies with structure and allows the team
 
 - **Establish health validation and readiness checks**. Define how you verify service functionality post-failover. Include application-level, infrastructure, and data integrity checks.
 
+  If you use partitioned data platforms such as Azure Cosmos DB, define whether failover can occur at full-service scope or only for affected partitions. Per-partition automatic failover can keep unaffected traffic flowing during a regional disruption, but your runbook still needs dependency testing and regional readiness checks before you assume the workload is healthy.
+
 - **Plan post-recovery and review**. Outline actions to clean up temporary environments. Document data reconciliation if applicable. Schedule root cause analysis and DR debrief.
 
 > [!TIP]
@@ -334,3 +336,4 @@ Build on the [recovery strategies for active-passive (warm standby)](#recovery-s
 
 - [RE:05 Architecture strategies for designing for redundancy](../reliability/redundancy.md)
 
+<!-- Updated: 2026-07-10 for Azure Update 563042 -->

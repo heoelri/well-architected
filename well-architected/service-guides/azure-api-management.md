@@ -1,8 +1,8 @@
 ---
 title: Architecture Best Practices for Azure API Management
 description: Learn about Azure Well-Architected Framework design considerations and configuration recommendations that are relevant for Azure API Management.
-author: dlepow
-ms.author: danlep
+author: PageWriter-MSFT
+ms.author: prwilk
 ms.topic: concept-article
 ms.date: 12/11/2025
 ms.subservice: waf-service-guide
@@ -112,6 +112,8 @@ Start your design strategy based on the [design review checklist for Security](.
 > - **Perform threat modeling on API Management and reduce its surface area:** Determine whether specific API Management components, such as the direct management API or public access to the developer portal, can be disabled, restricted, or removed.
 >
 > - **Identify secrets that workloads require:** Gateway operation might require certificates, API keys, or other secret values. Review the requirements and capabilities of Azure Key Vault to store secrets and certificates. Or review the built-in API Management capabilities such as [named values](/azure/api-management/api-management-howto-properties) and [managed certificates](/azure/api-management/configure-custom-domain#domain-certificate-options).
+>
+> - **Separate branded domains with policy governance.** Use multiple custom domains on one API Management instance to isolate business units, regions, or audience-specific endpoints without duplicating gateways. Pair domain separation with clear policy scope, certificate ownership, and endpoint access controls so one brand's exposure doesn't weaken another's boundary.
 
 ### Configuration recommendations
 
@@ -165,6 +167,8 @@ Start your design strategy based on the [design review checklist for Cost Optimi
 > - **Evaluate service configurations and policies:** Capabilities such as [rate-limit](/azure/api-management/rate-limit-policy) and [limit-concurrency](/azure/api-management/limit-concurrency-policy) can be used as cost optimization techniques to manage request loads.
 >
 > - **Optimize logic placement:** Assess whether back-end servers are more cost-effective for processing logic or if the gateway should handle the resource usage. The gateway is a strong component for implementing cross-cutting concerns, but it might perform excessive functions in certain scenarios. Identify resource-heavy request processing tasks that the gateway performs, and determine whether moving that logic to back-end servers can reduce costs.
+>
+> - **Use shared workspaces intentionally.** Evaluate built-in gateway support for workspaces before deploying separate workspace gateways or extra instances for each team. Use shared gateways when isolation requirements permit, but define chargeback, quotas, and governance boundaries so one team's growth doesn't create hidden costs for others.
 
 ### Configuration recommendations
 
@@ -205,6 +209,8 @@ Start your design strategy based on the [design review checklist for Operational
 > - **Plan regular testing of production workloads** by using load testing.
 >
 > - **Identify operational tasks beyond CI/CD or IaC processes** that require automation. Plan automation in areas such as API Management policy source management, Azure policies, and specific developer portal configurations.
+>
+> - **Standardize hostname operations.** Use wildcard hostnames and certificate patterns to reduce repetitive domain onboarding across large API estates. Define renewal, ownership, and network boundary processes so wildcard coverage doesn't bypass approval or inventory controls.
 
 ### Configuration recommendations
 
@@ -320,3 +326,7 @@ The following articles demonstrate some of the recommendations discussed in this
 - [Access Azure OpenAI and other language models through a gateway](/azure/architecture/ai-ml/guide/azure-openai-gateway-guide)
 - [Automated API deployments using APIOps](/azure/architecture/example-scenario/devops/automated-api-deployments-apiops)
 - [API Management architecture in an application landing zone](/azure/architecture/example-scenario/integration/app-gateway-internal-api-management-function) and [Azure landing zone platform considerations](/azure/cloud-adoption-framework/scenarios/app-platform/api-management/landing-zone-accelerator) for API Management deployments
+
+<!-- Updated: 2026-07-10 for Azure Update 562848 -->
+<!-- Updated: 2026-07-10 for Azure Update 562894 -->
+<!-- Updated: 2026-07-10 for Azure Update 562899 -->

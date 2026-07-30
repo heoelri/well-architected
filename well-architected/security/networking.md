@@ -252,6 +252,8 @@ The following technology choices are recommended:
 
 Azure Firewall and Azure Web Application Firewall aren't mutually exclusive choices. For your edge security solution, various options are available. For examples, see [Firewall and Application Gateway for virtual networks](/azure/architecture/example-scenario/gateway/firewall-application-gateway).
 
+Azure API Management can simplify large-scale domain exposure by using wildcard hostnames and certificates, and a single instance can present multiple branded domains across gateway and portal endpoints. Use that consolidation to reduce repetitive domain management, but keep certificate governance, endpoint ownership, and policy scoping aligned with your network boundaries.
+
 ### Network security groups
 
 A [network security group](/azure/virtual-network/manage-network-security-group) is a layer 3 and layer 4 firewall that you apply at the subnet or network interface card (NIC) level. Network security groups aren't created or applied by default.
@@ -456,3 +458,5 @@ Refer to the complete set of recommendations.
 <!-- Updated: August 17, 2025 for Azure Update 496002, 497535 -->
 <!-- Updated: 2026-05-28 for Azure Update 562690 -->
 <!-- Updated: 2026-06-04 for Azure Update 564714 -->
+<!-- Updated: 2026-07-10 for Azure Update 562894 -->
+<!-- Updated: 2026-07-10 for Azure Update 562899 -->

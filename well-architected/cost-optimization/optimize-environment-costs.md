@@ -175,9 +175,19 @@ Use Azure Resource Manager to define and manage resources in a declarative manne
 
 You can use [Azure API Management](/azure/api-management/api-management-key-concepts) for API mocking. API Management acts as a facade to back-end services, which allows API providers to abstract API implementations and evolve back-end architecture without affecting API consumers.
 
+Use the Azure Cosmos DB emulator in Docker-based local environments to validate queries and partition choices before you consume cloud resources. This approach can lower early testing cost, but you still need production validation for parity-sensitive behavior.
+
+Azure API Management can reduce platform duplication by using workspaces on the built-in gateway and by exposing multiple branded domains from a single instance. Use that consolidation to lower shared environment cost, but define governance boundaries, endpoint ownership, and policy scoping before centralizing teams.
+
+Azure Database for MySQL self-service quota management removes support ticket overhead for planned capacity changes. Use it to shorten cost and capacity review cycles when environments need timely resizing.
+
 ## Cost Optimization checklist
 
 Refer to the complete set of recommendations.
 
 > [!div class="nextstepaction"]
 > [Cost Optimization checklist](checklist.md)
+<!-- Updated: 2026-07-10 for Azure Update 562754 -->
+<!-- Updated: 2026-07-10 for Azure Update 562848 -->
+<!-- Updated: 2026-07-10 for Azure Update 562899 -->
+<!-- Updated: 2026-07-10 for Azure Update 563147 -->

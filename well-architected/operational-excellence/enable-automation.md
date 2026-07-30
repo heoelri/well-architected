@@ -168,6 +168,8 @@ Azure offers many tools to help you automate tasks for your workload.
 - Oversee compliance on your entire fleet
 - Schedule recurring updates and deploy critical updates
 
+When automation workflows depend on timely capacity changes, Azure Database for MySQL self-service quota management can remove support ticket delays and shorten planning loops for scale operations. Keep those quota changes within approved guardrails so speed doesn't bypass capacity governance.
+
 **Azure Deployment Environments**: [Deployment Environments](/azure/deployment-environments/overview-what-is-azure-deployment-environments) enables development teams to quickly create consistent app infrastructure using project-based templates that minimize setup time and maximize security, compliance, and cost efficiency. A deployment environment is Azure resources deployed in predefined subscriptions. Infrastructure administrators enforce enterprise security policies and provide curated IaC templates.
 
 Administrators define deployment environments as catalog items hosted in a GitHub or Azure DevOps repository (*catalog*). Each catalog item consists of an IaC template and a manifest.yaml file. You can script the creation and programmatic management of deployment environments.
@@ -251,3 +253,4 @@ Refer to the complete set of recommendations.
 
 > [!div class="nextstepaction"]
 > [Operational Excellence checklist](checklist.md)
+<!-- Updated: 2026-07-10 for Azure Update 563147 -->

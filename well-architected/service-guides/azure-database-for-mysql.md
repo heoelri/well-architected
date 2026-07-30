@@ -232,6 +232,8 @@ Start your design strategy based on the [design review checklist for Cost Optimi
 >    Consolidate workloads that have different peak usage patterns to maximize benefits from sharing server resources. Plan for cumulative storage growth because provisioned storage can only scale up.
 >
 >    Deploy read replicas for analytical and reporting workloads instead of provisioning separate servers. Size read replica compute independently from the primary server to match actual read workload requirements. The Burstable tier doesn't support read replicas, so use General Purpose or Memory Optimized tiers. Read replicas bill independently for both compute and storage.
+>
+> - **Plan quota growth before scaling events:** Use the Azure Quotas experience to track usage, request increases, and review approvals before new server deployments or major scale changes. Combine quota reviews with growth forecasts and subscription guardrails so capacity expansion isn't delayed by preventable approval work.
 
 <!-- markdownlint-disable-next-line MD024 -->
 ### Configuration recommendations
@@ -399,3 +401,4 @@ Foundational architecture that demonstrates the key recommendations: [WordPress 
 
 - [Azure Database for MySQL flexible server](/azure/mysql/flexible-server/overview)
 - [Training: Azure Database for MySQL flexible server](/training/modules/implement-azure-database-for-mysql-features-that-support-mission-critical-workloads/)
+<!-- Updated: 2026-07-10 for Azure Update 563147 -->

@@ -135,6 +135,8 @@ Building and maintaining safe deployment practices is complex. Your success in f
 
 - Use [Azure Logic Apps](/azure/logic-apps/logic-apps-overview#more-about-azure-logic-apps) to create a new version of the application whenever an update is made to it. Azure maintains a history of application versions and can revert or promote to any previous version.
 
+- Azure Functions Flex Consumption replaces instances gradually during updates, which can reduce interruption during deployment rollouts. Treat that behavior as blast-radius reduction, not a substitute for dependency validation, rollback drills, and version-compatibility testing.
+
 - Many Azure Database services provide point-in-time restore functionality that can help you roll back. Services that support point-in-time restore include:
 
   - [Azure SQL Database](/azure/azure-sql/database/recovery-using-backups)
@@ -183,3 +185,4 @@ Refer to the complete set of recommendations.
 > [Operational Excellence checklist](checklist.md)
 
 <!-- Updated: 2026-05-28 for Azure Update 562690 -->
+<!-- Updated: 2026-07-10 for Azure Update 562365 -->

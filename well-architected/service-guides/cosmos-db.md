@@ -63,6 +63,8 @@ Start your design strategy based on the [design review checklist for Reliability
 > - **Use native disaster recovery and backup features.** Implement [database and container backups and restores](/azure/cosmos-db/continuous-backup-restore-introduction) to meet your requirements. Restore scenarios include point-in-time restore, recovering from accidental destructive operations, restoring deleted resources, and restoring to another region at a point in time. Configure your account with [continuous backup](/azure/cosmos-db/online-backup-and-restore). Choose the appropriate retention period based on your business requirements.
 >
 > - **Align your Azure Cosmos DB design with industry-standard application design guidance and patterns.** Explore the [guide to design resilient applications](/azure/cosmos-db/nosql/conceptual-resilient-sdk-applications), review the [default retry policy](/azure/architecture/best-practices/retry-service-specific#azure-cosmos-db) for the SDKs, and plan for [custom handling for specific transient errors](/azure/cosmos-db/nosql/conceptual-resilient-sdk-applications#should-my-application-retry-on-errors). These guides provide best practices to make application code resilient to transient errors.
+>
+> - **Validate partition-level failover behavior.** Test regional disruption scenarios with your application dependencies, retry logic, and readiness checks to confirm unaffected partitions continue serving traffic. Pair these tests with regional health signals and failover runbooks so operators know when to rely on partition-level failover and when to escalate to account-level recovery.
 
 ### Configuration recommendations
 
@@ -104,6 +106,8 @@ Start your design strategy based on the [design review checklist for Security](.
 >   Monitor data egress, data changes, usage, and latency by using [data plane metrics](/azure/cosmos-db/use-metrics).
 >
 > - **Use secure development and testing practices.** Follow best software development practices for secure access to data. Follow secure coding practices and perform secure code reviews when you develop applications that interact with Azure Cosmos DB.
+>
+> - **Govern full-fidelity change history.** Use the change feed for all versions and deletes when audit, replication, or forensic workflows need create, update, delete, and TTL expiration events. Restrict access, define retention boundaries, and protect downstream copies because historical events can extend exposure of sensitive data.
 
 ### Configuration recommendations
 
@@ -187,6 +191,8 @@ Start your design strategy based on the [design review checklist for Operational
 >   Create and enforce best practices to automate the deployment of your Azure Cosmos DB for NoSQL account and resources.
 >
 >   Ensure that your team uses the same templates to deploy to other nonproduction environments.
+>
+> - **Shift early validation left with the emulator.** Use the Docker-based emulator in local and continuous integration environments to validate data models, queries, and SDK behavior before provisioning cloud resources. Keep production validation in your release process because emulator coverage doesn't replace testing against real regional, scale, and service behaviors.
 
 ### Configuration recommendations
 
@@ -237,6 +243,8 @@ Start your design strategy based on the [design review checklist for Performance
 >   For the most common queries, determine the number of results that you expect for each page. This number helps you formalize a buffered item count for prefetched results.
 >
 > - **Optimize code logic.** Use the singleton pattern for the `CosmosClient` class in most SDKs. Use the client class in most SDKs as a singleton. The client class manages its own lifecycle and is designed to not be disposed. Constantly creating and disposing instances can result in reduced performance.
+>
+> - **Isolate expensive query paths with secondary indexes.** Evaluate global secondary indexes for read-heavy or cross-partition queries that need different partition keys or indexing policies than the transactional container. Model throughput, freshness, and operational overhead separately so the index improves latency without hiding inefficient query design.
 
 ### Configuration recommendations
 
@@ -282,4 +290,7 @@ For more information, see [Azure Advisor](/azure/advisor).
 
 <!-- Updated: August 17, 2025 for Azure Update 470102 -->
 <!-- Updated: November 21, 2025 for Azure Update 520696 -->
-
+<!-- Updated: 2026-07-10 for Azure Update 562754 -->
+<!-- Updated: 2026-07-10 for Azure Update 562799 -->
+<!-- Updated: 2026-07-10 for Azure Update 562971 -->
+<!-- Updated: 2026-07-10 for Azure Update 563042 -->

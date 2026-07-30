@@ -86,7 +86,7 @@ Start your design strategy based on the [design review checklist for Security](.
 >
 > - **Keep Application Insights instrumentation up to date to help ensure that your application monitoring solution is secure.** Follow our [SDK update guidance](/azure/azure-monitor/app/sdk-support-guidance#sdk-update-guidance) and update Application Insights SDKs (Classic API) at least once a year. We recommend that you follow similar practices for the [Azure Monitor OpenTelemetry Distro](/azure/azure-monitor/app/opentelemetry-enable).
 >
-> - **Define a strategy for [handling personal data in Application Insights](/azure/azure-monitor/logs/personal-data-mgmt).** To ensure ongoing compliance, regularly verify that the collection and handling of data, including IP addresses and personal data, [complies with relevant regulations](/azure/compliance/), such as GDPR.
+> - **Define a strategy for [handling personal data in Application Insights](/azure/azure-monitor/logs/personal-data-mgmt).** To ensure ongoing compliance, regularly verify that the collection and handling of data, including IP addresses and personal data, [complies with relevant regulations](/azure/compliance/).
 >
 > - **Create intentional segmentation in your application monitoring design.** Determine the [number of Application Insights resources](/azure/azure-monitor/app/create-workspace-resource?tabs=bicep#how-many-application-insights-resources-should-i-deploy) that you need.
 >
@@ -145,7 +145,7 @@ Start your design strategy based on the [design review checklist for Cost Optimi
 | Recommendation | Benefit |
 |:---------------|:--------|
 | [Set a daily cap in both Application Insights and Log Analytics](/azure/azure-monitor/logs/daily-cap#when-to-use-a-daily-cap), but try to avoid reaching it. | Reaching the daily cap can cause data to not be written in your Log Analytics workspace. Setting a cap is a risky but effective solution for throttling spend. |
-| For standard availability tests, the need for testing from different locations might vary between production and preproduction environments. Reduce the number of locations accordingly. | Tests incur costs, so only have enough tests to give you confidence in your workload's heath. |
+| For standard availability tests, the need for testing from different locations might vary between production and preproduction environments. Reduce the number of locations accordingly. | Tests incur costs, so only have enough tests to give you confidence in your workload's health. |
 | Deploy your Application Insights resource in the same region as the underlying Log Analytics workspace. | This approach minimizes latency and reduces costs associated with cross-region telemetry. |
 | Decrease the sample rate for less critical flows and increase it for flows with high criticality. Use telemetry filters for nonessential telemetry. | Data volume is a cost driver when designing your Application Insights integration. Reducing data volume through sample rates and filters is a potential solution to keeping your data collection under control. |
 | [Limit the number of Ajax calls](/azure/azure-monitor/app/javascript-sdk-configuration) that can be reported in every page view, or disable Ajax reporting. If you disable Ajax calls, you also disable [JavaScript correlation](/azure/azure-monitor/app/distributed-trace-data). | Data volume is a cost driver when designing your Application Insights integration for your client application. Reducing data volume through reduced client page reporting is a potential solution to keeping your data collection costs under control. |
@@ -176,6 +176,12 @@ Start your design strategy based on the [design review checklist for Operational
 > - **Develop an effective emergency operations practice.** Use [alerts](/azure/azure-monitor/alerts/alerts-overview) and [workbooks](/azure/azure-monitor/visualize/workbooks-overview) to identify and respond to incidents. Clearly define human responsibilities. For example, determine who reboots the application if your workload fails.
 >
 > - **Clearly define your workload's safe deployment practices.** Use [Release Annotations](/azure/azure-monitor/app/release-and-work-item-insights?tabs=release-annotations) as part of your failure mitigation strategies to keep track of your deployments and other events.
+>
+> - **Use simple alerts for high-signal detection:** Apply simple log alerts when teams need fast detection from telemetry records without maintaining complex alert queries. Tune the alert scope, grouping, and response path so operators can act quickly without increasing noise.
+>
+> - **Validate dynamic thresholds against normal application behavior:** Use historical patterns to reduce manual threshold tuning across many alerts, but test for seasonal traffic, release events, and known batch activity before you rely on learned baselines. Review threshold behavior regularly so anomaly alerts continue to reflect meaningful operational changes.
+>
+> - **Align Azure Functions dashboards with your telemetry strategy:** If teams operate function apps through the built-in Grafana dashboards, ensure that Application Insights instrumentation, dimensions, and retention support the signals shown there. Back those dashboards with alerts, service level objectives, and runbooks so visualization improvements translate into reliable operations.
 
 ### Configuration recommendations
 
@@ -203,13 +209,13 @@ Start your design strategy based on the [design review checklist for Performance
 >
 > - **Select the right region for your application monitoring solution.** Deploy your Application Insights resource in the same region as the underlying Log Analytics workspace to prevent latency and reliability problems. See [Create a resource](/azure/azure-monitor/app/create-workspace-resource?tabs=bicep#create-a-workspace-based-resource).
 >
-> - **Evaluate [how many Application Insights resources](/azure/azure-monitor/app/create-workspace-resource?tabs=bicep#how-many-application-insights-resources-should-i-deploy) you need.** Monitoring mulitple applications or application components with a single Application Insights resource provides a holistic view, but can also affect the performance of experiences like [Application Map](/azure/azure-monitor/app/app-map?tabs=net) and [Usage](/azure/azure-monitor/app/usage?tabs=aspnetcore).
+> - **Evaluate [how many Application Insights resources](/azure/azure-monitor/app/create-workspace-resource?tabs=bicep#how-many-application-insights-resources-should-i-deploy) you need.** Monitoring multiple applications or application components with a single Application Insights resource provides a holistic view, but can also affect the performance of experiences like [Application Map](/azure/azure-monitor/app/app-map?tabs=net) and [Usage](/azure/azure-monitor/app/usage?tabs=aspnetcore).
 >
 > - **Optimize code and infrastructure.** Regularly evaluate custom Application Insights code to reduce complexity, improve performance, and ensure that the code is up to date.
 >
 > - **Understand usage patterns and how much data is coming in by reviewing ingestion and sample rates.** To optimize data usage, adjust them accordingly and reduce the amount of [custom metrics](/azure/azure-monitor/app/api-custom-events-metrics), for example ITelemetryProcessor.
 >
-> - **Continuously optimize performance.** Use built-in features like [Smart Detection](/azure/azure-monitor/alerts/proactive-diagnostics), [queries](/azure/azure-monitor/logs/queries), and [dashboards](/azure/azure-monitor/app/overview-dashboard) to find components that show deteriorating performence.
+> - **Continuously optimize performance.** Use built-in features like [Smart Detection](/azure/azure-monitor/alerts/proactive-diagnostics), [queries](/azure/azure-monitor/logs/queries), and [dashboards](/azure/azure-monitor/app/overview-dashboard) to find components that show deteriorating performance.
 
 ### Configuration recommendations
 
@@ -240,3 +246,6 @@ For more information, see [Azure Advisor](/azure/advisor).
 - [Azure Well-Architected Framework perspective on Log Analytics](./azure-log-analytics.md)
 - [Enable application monitoring in Azure App Service for .NET, Node.js, Python, and Java applications](/azure/azure-monitor/app/codeless-app-service)
 - [Enable Azure Monitor OpenTelemetry for .NET, Node.js, Python, and Java applications](/azure/azure-monitor/app/opentelemetry-enable)
+<!-- Updated: 2026-07-10 for Azure Update 561978 -->
+<!-- Updated: 2026-07-10 for Azure Update 561984 -->
+<!-- Updated: 2026-07-10 for Azure Update 562492 -->

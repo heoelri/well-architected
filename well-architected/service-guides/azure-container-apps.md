@@ -104,6 +104,7 @@ Start your design strategy based on the [design review checklist for Security](.
 >
 >   *Enforce HTTPS.* Configure Envoy proxy to redirect all HTTP traffic to HTTPS. The default configuration for Envoy is `allowInsecure: false`.  
 > - **Implement a security monitoring strategy.** Capture detailed logs for monitoring and auditing. Send system and console logs to a Log Analytics workspace, Event Hubs, or a non-Microsoft solution for monitoring and auditing purposes. Scrub sensitive data from logs. Console logs originate from the `stderr` and `stdout` streams in the app.
+> - **Adopt confidential workload profiles deliberately.** Use confidential workload profiles for workloads that must protect data in use, such as regulated processing or sensitive model inference. Verify attestation, regional availability, image compatibility, and operational runbooks before rollout because trusted execution environments add deployment and support constraints.
 
 ### Configuration recommendations
 
@@ -189,6 +190,8 @@ Start your design strategy based on the [design review checklist for Operational
 > - **Implement chaos engineering.** Apply chaos engineering practices by using tools such as Azure Chaos Studio to identify potential reliability problems within your Container Apps environment. Conduct experiments to ensure that your applications can withstand unexpected failures. Conduct performance testing by using tools such as Azure Load Testing to make sure scaling rules work as expected without disruptions to clients.  
 > - **Implement consistent resource tagging** across all container apps and other workload resources. Consistent tagging facilitates efficient resource management, cost tracking, and automation.
 > - **Enforce workload governance.** Azure Policy helps ensure consistent compliance with organizational standards, automates policy enforcement, and provides centralized visibility and control over your workload's resources.
+> - **Standardize telemetry export paths.** Use managed export destinations for OpenTelemetry data to connect Container Apps to platforms such as New Relic, Dynatrace, Elastic, or other supported back ends without running custom collectors. Define routing, sampling, retention, and ownership per destination so observability stays consistent and cost controlled across environments.
+> - **Plan high-volume ingress logging.** Enable `ContainerAppHTTPLogs` only for scenarios that need request-level troubleshooting of latency, retries, or routing failures. Define retention, redaction, and cost thresholds before rollout because high-volume HTTP logs can increase storage, privacy, and analysis overhead.
 
 ### Configuration recommendations
 
@@ -272,4 +275,6 @@ Foundational architecture that demonstrates the key recommendations: [Microservi
 - [Container Apps overview](/azure/container-apps/overview)
 - [Container Apps landing zone accelerator](/azure/cloud-adoption-framework/scenarios/app-platform/container-apps/landing-zone-accelerator)
 
-
+<!-- Updated: 2026-07-10 for Azure Update 562554 -->
+<!-- Updated: 2026-07-10 for Azure Update 562559 -->
+<!-- Updated: 2026-07-10 for Azure Update 562564 -->

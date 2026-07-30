@@ -141,6 +141,8 @@ Use [traffic analytics](/azure/network-watcher/traffic-analytics) to analyze vir
 
 By using Microsoft AI and DevOps tools, teams can automatically turn retrospective insights into actionable backlog items. Consider using Microsoft Foundry for AI model operations, Azure DevOps for backlog management, and Power Automate or Logic Apps for automation. 
 
+If your workload stores evidence in Azure Cosmos DB, the all versions and deletes change feed can capture every create, update, delete, and TTL expiration event for forensic reconstruction. Govern retention and investigator access carefully because mutation history can contain sensitive operational evidence.
+
 ## Related links
 
 - [Recommendations for designing and creating an observability framework](observability.md)
@@ -155,3 +157,4 @@ Refer to the complete set of recommendations.
 > [Operational Excellence checklist](checklist.md) 
 
 <!-- Updated: 2026-03-21 for Azure Update 558321 -->
+<!-- Updated: 2026-07-10 for Azure Update 562971 -->

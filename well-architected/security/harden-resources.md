@@ -1,9 +1,10 @@
 ---
 title: Architecture strategies for hardening resources
-description: Learn how to reduce an attack surface and increase attackers' costs to limit opportunities for malicious actors to exploit vulnerabilities.
+description: Learn how to reduce an attack surface and increase attackers costs to limit opportunities for malicious actors to exploit vulnerabilities.
 author: PageWriter-MSFT
-ms.author: prwilk 
-ms.date: 11/15/2023
+ms.author: prwilk
+ms.reviewer: simipaul
+ms.date: 07/02/2026
 ms.topic: concept-article
 ---
 
@@ -27,8 +28,7 @@ Security hardening is an intentional self-preservation exercise. The goal is to 
 | Hardening |The practice of reducing an attack surface area by removing extraneous resources or adjusting configurations.|
 | Privileged access workstation (PAW) | A dedicated and secure machine that you use to perform sensitive tasks, which reduces the risk of compromise.|
 | Secure administrative workstation (SAW) | A specialized PAW that's used by critical impact accounts.|
-|Surface area|A logical footprint of a workload that contains vulnerabilities. |
-
+| Surface area | A logical footprint of a workload that contains vulnerabilities. |
 
 Security hardening is a highly localized exercise that **strengthens controls at the component level**, whether it's resources or processes. When you tighten the security of each component, it improves the aggregate security assurance of your workload.
 
@@ -36,65 +36,89 @@ Security hardening doesn't consider the functionality of the workload, and it do
 
 ## Build an inventory of workload assets
 
-The first step of the hardening process is to gather a comprehensive inventory of all hardware, software, and data assets. Keep your inventory records up to date by adding new assets and removing decommissioned assets. For all assets in your inventory, consider the following best practices:
+The first step in the hardening process is to gather a complete inventory of all hardware, software, and data assets. Keep your inventory records up to date by adding new assets and removing decommissioned assets. For all assets in your inventory, consider the following best practices:
 
 - **Reduce the footprint**. Remove extraneous surface area or reduce the scope. **Eliminate easy targets**, or cheap and well-established attack vectors, such as unpatched software exploits and brute force attacks. Prior to the production deployment, you should clean identities, build components, and other nonrequired assets from the source tree.
 
-  > :::image type="icon" source="../_images/risk.svg"::: **Risk**: Decommissioning resources, removing identities or role assignments, reducing protocol support, and deleting data could lead to accidental loss of critical functionality. Mitigate this risk by using a [safe decommissioning](../operational-excellence/safe-deployments.md#plan-and-execute-safe-decommissioning) process.
+  > :::image type="icon" source="../_images/risk.svg"::: **Risk:** Decommissioning resources, removing identities or role assignments, reducing protocol support, and deleting data can lead to accidental loss of critical functionality. Mitigate this risk by using a [safe decommissioning](../operational-excellence/safe-deployments.md#plan-and-execute-safe-decommissioning) process.
 
 - **Fine-tune configurations**. Evaluate and **tighten the remaining surface area**. When resources are hardened, tried and tested methods that attackers use are no longer successful. It forces attackers to acquire and use advanced or untested attack methods, which increases their costs.
 
-- **Maintain defenses**. Maintain protective measures by performing **continuous threat detection** to help ensure that hardening efforts are dependable over time.
+- **Maintain defenses**. Maintain protective measures by performing continuous threat detection to help ensure that hardening efforts are dependable over time. 
 
 Also consider the following factors.
 
-**Trusted source.** Part of the hardening exercise involves the software supply chain. This guidance assumes that **all components are obtained from trusted sources**. Your organization must approve software that's procured from third-party vendors. This approval applies to sources of the operating system, images, and other third-party tools. Without trusted resources, hardening can be an infinite drain of security assurances on untrusted sources.
+**Verify source.** Part of the hardening exercise involves the software supply chain. This guidance assumes that **all components are obtained from trusted sources**. Your organization must approve software that's procured from third-party vendors. This approval applies to sources of the operating system, images, and other third-party tools. Without trusted resources, hardening can be an infinite drain of security assurances on untrusted sources.
 
 For recommendations about security for your supply chain, see [Recommendations for securing a development lifecycle](secure-development-lifecycle.md).
 
-**Training.** Hardening is a specialized skill. It's methodical and requires a high level of competency. You need to understand the functionality of a component and how changes affect the component. A team member must be able to discern the guidance that's from industry experts and the platform to distinguish it from guidance from uncertain sources. Educate your team members in creating a security-aware culture. Ensure that your team is **proficient in security best practices, has awareness of potential threats, and learns from post-incident retrospectives**.
+**Train your team.** Hardening is a specialized skill. It's methodical and requires a high level of competency. You need to understand the functionality of a component and how changes affect the component. A team member must be able to discern the guidance that's from industry experts and the platform to distinguish it from guidance from uncertain sources. Educate your team members in creating a security-aware culture. Ensure that your team is **proficient in security best practices, has awareness of potential threats, and learns from post-incident retrospectives**.
 
-**Documentation.** Document and publish hardening requirements, decisions, and defined methods. For transparency, also **document exceptions or deviations** from those requirements.
+**Document decisions.** Document and publish hardening requirements, decisions, and defined methods. For transparency, also **document exceptions or deviations** from those requirements.
 
-Hardening can be cumbersome, but it's a crucial security exercise that you must document. Harden the core components first, and then expand to other areas, such as automated processes and human processes, to tighten up potential gaps. Be meticulous about changes. For example, a necessary step is to disable the default settings because changes to default values can affect the stability of the system. Even if the replacement configuration is the same as the default, it must be defined. The following sections describe common targets for hardening. Evaluate key design areas of your workload and follow the key strategies to harden at a component level.
+Hardening can be cumbersome, but it's a crucial security exercise that you must document. Harden the core components first, and then expand to other areas, such as automated processes and human processes, to tighten up potential gaps. Be meticulous about changes. For example, a necessary step is to disable the default settings because changes to default values can affect the stability of the system. Even if the replacement configuration is the same as the default, it must be defined. 
 
-## Harden networking components
+## Remove what's not needed
 
-**Divide the network into segments** to isolate critical assets and sensitive data from less secure assets, which reduces lateral movements by attackers. In those segments, apply a *deny-by-default* approach. Only add access to the allowlist if it's justified.
+Attackers exploit systems that have unnecessary configurations. Remove what you don't need, and retire anything legacy.
 
-**Disable ports and protocols that aren't actively used**. For example, on Azure App Service, if you don't need to deploy via FTP, you can disable it. Or if you perform management operations via an internal network, you can disable administrative access from the internet.
+- **Discover and disable unused capabilities** or features, such as unused data plane access and product features, that other components might cover. For example, App Service supports Kudu, which provides FTP deployments, remote debugging, and other features. If you don't need those features, turn them off.
 
-**Remove or disable legacy protocols**. Attackers exploit systems that use old versions. Use an Azure detection service to review logs and determine protocol usage. It might be difficult to remove protocols because it can disrupt the functionality of the system. Test all changes before implementation to mitigate the risk of operational interruption.
+- **Disable ports and protocols that aren't actively used**. For example, on Azure App Service, if you don't need to deploy via FTP, you can disable it. Or if you perform management operations via an internal network, you can disable administrative access from the internet.
 
-**Treat public IP (PIP) addresses as high-risk assets** because they're easy to access and have a broad worldwide reach. To reduce exposure, remove unnecessary internet access to the workload. Use shared public IP addresses that Microsoft services, like Azure Front Door, provide. These services are designed to be internet-facing, and they block access to disallowed protocols. Many such services perform initial checks on incoming requests at the network edge. With a dedicated PIP, you're responsible for managing its security aspects, allowing or blocking ports, and scanning incoming requests to ensure their validity.
+- **Remove or disable legacy protocols**. Attackers exploit systems that use old versions. Use an Azure detection service to review logs and determine protocol usage. It might be difficult to remove protocols because it can disrupt the functionality of the system. Consider isolating legacy protocols to minimize exposure. Test all changes before implementation to mitigate the risk of operational interruption.
 
-For internet-facing applications, **restrict access by adding a layer-7** service that can filter invalid traffic. Explore native services that enforce distributed denial-of-service (DDoS) protection, have web application firewalls, and provide protection at the edge before traffic reaches the application tier.
+- **Remove unused or default accounts.** Disable unused authentication and authorization methods.
 
-Domain Name System (DNS) hardening is another network security practice. To ensure that the DNS infrastructure is secure, we recommend that you **use trusted DNS resolvers**. To validate information from DNS resolvers and provide an extra layer of security, when possible, use a DNS security protocol for highly sensitive DNS zones. To prevent attacks such as DNS cache poisoning, DDoS attacks, and amplification attacks, explore other DNS-related security controls such as query rate limiting, response rate limiting, and DNS cookies.
+- **Disable legacy authentication methods**, because they're frequent attack vectors. Old protocols often lack countermeasures, such as account lockouts. Externalize your authentication requirements to your identity provider (IdP), such as Microsoft Entra ID.
 
-## Harden identity access controls
+## Reduce exposure to the internet
 
-**Remove unused or default accounts.** Disable unused authentication and authorization methods.
+Minimize how much of your workload is reachable from the public internet.
 
-**Disable legacy authentication methods** because they're frequently attack vectors. Old protocols often lack attack-counter measures, such as account lockouts. Externalize your authentication requirements to your identity provider (IdP), such as Microsoft Entra ID.
+- **Treat public IP (PIP) addresses as high-risk assets** because they're easy to access and have a broad worldwide reach. To reduce exposure, remove unnecessary internet access to the workload. Use shared public IP addresses from Microsoft services, such as Azure Front Door. These services are designed to be internet-facing, and they block access to disallowed protocols. Many such services perform initial checks on incoming requests at the network edge. With a dedicated PIP, you're responsible for managing its security aspects, including allowing or blocking ports, and scanning incoming requests to ensure their validity.
 
-**Prefer federation over creating duplicate identities.** If an identity is compromised, it's easier to revoke its access when it's centrally managed.
+- **Add a layer-7 service for internet-facing applications** to filter invalid traffic. Explore native services that enforce distributed denial-of-service (DDoS) protection, have web application firewalls, and provide protection at the edge before traffic reaches the application tier.
 
-**Understand platform capabilities** for enhanced authentication and authorization. Harden access controls by taking advantage of multifactor authentication, passwordless authentication, Conditional Access, and other features that Microsoft Entra ID offers to verify identity. You can add extra protection around sign-in events and reduce the scope in which an attacker can make a request.
+- **Use trusted DNS resolvers** to harden your DNS infrastructure. To validate information from DNS resolvers and provide an extra layer of security, when possible, use a DNS security protocol for highly sensitive DNS zones. To prevent attacks such as DNS cache poisoning, DDoS attacks, and amplification attacks, explore other DNS-related security controls such as query rate limiting, response rate limiting, and DNS cookies.
 
-**Use managed identities** and workload identities with no credentials where possible. Credentials can be leaked. For more information, see [Recommendations for protecting application secrets](application-secrets.md).
+- **Use private endpoints** to provide secure connectivity to Azure services without public IPs. Private endpoints reduce exposure to the public internet.
 
-**Use the least-privilege approach for your management processes.** Remove unnecessary role assignments and perform regular Microsoft Entra access reviews. Use role assignment descriptions to keep a paper trail of justifications, which is crucial for audits.
+## Limit access to what's needed
 
-## Harden cloud resource configurations
+Give each component only the access it needs, and deny everything else by default.
 
-The preceding hardening recommendations for networking and identity apply to individual cloud services. For networking, pay special attention to **service-level firewalls**, and evaluate their inbound rules.
+- **Divide the network into segments** to isolate critical assets and sensitive data from less secure assets, which reduces lateral movements by attackers. In those segments, apply a *deny-by-default* approach. Only add access to the allowlist if it's justified.
 
-**Discover and disable unused capabilities** or features, such as unused data plane access and product features, that other components might cover. For example, App Service supports Kudu, which provides FTP deployments, remote debugging, and other features. If you don't need those features, turn them off.
+- **Use network security groups (NSGs)** to filter traffic to and from Azure resources in an Azure virtual network. NSGs contain security rules that allow or deny inbound and outbound network traffic based on source or destination IP addresses, ports, and protocols. 
+
+- **Evaluate service-level firewalls.** Review their inbound and outbound rules, and tighten them to match your access requirements.
+
+- **Use the least-privilege approach and role segregation for your management processes.** Remove unnecessary role assignments and perform regular Microsoft Entra access reviews. Avoid assigning multiple roles to a single identity. Use role assignment descriptions to keep a paper trail of justifications, which is crucial for audits. 
+
+- **Prefer federation over duplicate identities.** If an identity is compromised, it's easier to revoke access when it's centrally managed. Avoid creating federation accounts with privileged identities.
+
+- **Use managed identities** and workload identities with no credentials where possible. Credentials can be leaked. For more information, see [Recommendations for protecting application secrets](application-secrets.md).
+
+## Take advantage of platform capabilities
+
+Use built-in platform security features instead of building your own controls.
+
+**Understand platform capabilities** for enhanced authentication and authorization. Harden access controls by using multifactor authentication, passwordless authentication, Conditional Access, and other Microsoft Entra ID features that verify identity. These features add protection around sign-in events and reduce the scope in which an attacker can make a request.
+
+**Enforce hardening at scale.** Use Azure Policy to apply and audit hardening requirements across your resources, so new resources inherit your standards automatically.
+
+## Stay current with patching and updates
 
 Always **keep up with the Azure roadmap and the workload roadmap**. Apply patching and versioning updates that Azure services offer. Allow platform-provided updates, and subscribe to automated update channels.
 
-> :::image type="icon" source="../_images/risk.svg"::: **Risk**: Cloud resources often have requirements for allowances or must run in documented configurations to be considered *supported*. Some hardening techniques, such as aggressively blocking outbound traffic, can cause a service to fall outside a supported configuration, even if the service operates normally. Understand each cloud resource's runtime requirements from your platform to ensure that you maintain support for that resource.
+> :::image type="icon" source="../_images/risk.svg"::: **Risk:** Cloud resources often have requirements for allowances or must run in documented configurations to be considered *supported*. Some hardening techniques, such as aggressively blocking outbound traffic, can cause a service to fall outside a supported configuration, even if the service operates normally. Understand each cloud resource's runtime requirements from your platform to ensure that you maintain support for that resource.
+
+## Harden data assets
+
+**Classify data first so you harden the right assets.** Classification focuses hardening effort where a breach would cause the most harm. For more information, see [Recommendations for data classification](data-classification.md).
+
+**Use encryption to protect data at rest and in transit.** Encrypt data so that it's unreadable if an attacker gains access to the underlying storage or intercepts traffic. For more information, see [Recommendations for data encryption](encryption.md). **Enforce minimum TLS versions** for all communications, and disable weaker versions and cipher suites.
 
 ## Harden code assets
 
@@ -122,21 +146,31 @@ Also harden other non-runtime resources. For example, **reduce your build operat
 
 Determine if you need Microsoft-hosted or self-hosted build agents.  **Self-hosted build agents need extra management and must be hardened**.
 
-From an observability perspective, **implement a process for reviewing logs** for potential breaches. Regularly review and update access control rules based on access logs. Work with central teams to analyze security information event management (SIEM) and security orchestration automated response (SOAR) logs to detect anomalies.
+**Consider requiring PAWs or SAWs for privileged management operations**. PAWs and SAWs are hardened physical devices that offer significant security advantages, but their implementation requires careful planning and management. For more information, see [Securing devices as part of the privileged access story](/security/privileged-access-workstations/privileged-access-devices).
 
-Consider requiring PAWs or SAWs for privileged management operations. PAWs and SAWs are hardened physical devices that offer significant security advantages, but their implementation requires careful planning and management. For more information, see [Securing devices as part of the privileged access story](/security/privileged-access-workstations/privileged-access-devices).
+## Monitor and maintain hardening
+
+With continuous monitoring and threat detection, you gain visibility into your resources. Use tools like Cloud Security Posture Management (CSPM) to detect misconfigurations, unauthorized access, and insecure interfaces.
+
+**Implement a process for reviewing logs** for potential breaches. Regularly review and update access control rules based on access logs. Work with central teams to analyze security information event management (SIEM) and security orchestration automated response (SOAR) logs to detect anomalies.
+
+**Verify your hardening.** Regularly scan resources against a security baseline or industry benchmark, such as the CIS benchmarks, to detect configuration drift and verify that hardening is still in place.
 
 ## Azure facilitation
 
-Microsoft Defender for Cloud offers several hardening capabilities:
+- Microsoft Defender for Cloud offers several hardening capabilities:
 
-- [Server hardening](/azure/defender-for-cloud/apply-security-baseline)
-- [Adaptive network hardening](/azure/defender-for-cloud/adaptive-network-hardening)
-- Docker host hardening
+  - [Server hardening](/azure/defender-for-cloud/apply-security-baseline)
+  - [Adaptive network hardening](/azure/defender-for-cloud/adaptive-network-hardening)
+  - [Docker host hardening](/azure/defender-for-cloud/harden-docker-hosts)
 
 The Center for Internet Security (CIS) offers hardened images in Azure Marketplace.
 
 You can use Azure VM Image Builder to build a repeatable process for hardened OS images. Common Base Linux-Mariner is a hardened Linux distribution that's developed by Microsoft that follows security standards and industry certifications. You can use it with Azure infrastructure products to build workload implementations.
+
+- [Azure Policies](/azure/governance/policy/overview) can help you enforce hardening requirements across your Azure resources. You can use built-in policies or create custom policies to ensure that your resources comply with your organization's security standards. 
+
+- [Private endpoints](/azure/private-link/private-endpoint-overview) uses a private IP address from your Azure Virtual Network (VNet) to securely connect to services powered by Azure Private Link. You can use private endpoints to reduce exposure to the public internet and enhance security for your Azure resources.
 
 ## Example
 
@@ -157,8 +191,11 @@ The following procedure is an example of how to harden an operating system:
 - [Adaptive network hardening](/azure/defender-for-cloud/adaptive-network-hardening)
 - [Recommendations for protecting application secrets](application-secrets.md)
 - [Recommendations for securing a development lifecycle](secure-development-lifecycle.md)
+- [Recommendations for data classification](data-classification.md)
+- [Recommendations for data encryption](encryption.md)
 - [Securing devices as part of the privileged access story](/security/privileged-access-workstations/privileged-access-devices)
 - [Server hardening](/azure/defender-for-cloud/apply-security-baseline)
+- [Docker host hardening](/azure/defender-for-cloud/harden-docker-hosts)
 
 ## Community links
 
@@ -170,5 +207,3 @@ Refer to the complete set of recommendations.
 
 > [!div class="nextstepaction"]
 > [Security checklist](checklist.md)
-
-<!-- Updated: August 17, 2025 for Azure Update 496536 -->
