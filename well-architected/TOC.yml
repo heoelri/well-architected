@@ -348,6 +348,8 @@
         href: ./design-guides/release-engineering-continuous-integration.md
       - name: Regions and availability zones
         href: ./design-guides/regions-availability-zones.md
+      - name: Testing
+        href: ./design-guides/testing.md
       - name: Throttling
         href: ./design-guides/throttling.md
       - name: WAF assessments and recommendations
