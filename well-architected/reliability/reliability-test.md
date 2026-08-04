@@ -8,7 +8,7 @@ ms.date: 05/27/2026
 ms.topic: concept-article
 ---
 
-# Architecture strategies for designing a reliability testing strategy
+# Architecture strategies for reliability testing
 
 **Applies to this Azure Well-Architected Framework Reliability checklist recommendation:**
 
