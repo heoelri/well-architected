@@ -162,8 +162,6 @@ A cache stores frequently accessed data. Caching reduces data access latency and
 
 For a list of the most common Azure limits, see [Azure subscription and service limits, quotas, and constraints](/azure/azure-resource-manager/management/azure-subscription-service-limits).
 
-:::image type="icon" source="../_images/github.png"::: The [Query limits and quotas sample](https://github.com/mspnp/samples/tree/main/OperationalExcellence/ResourceLimits) shows how to query the limits and quotas for commonly used resources.
-
 Azure has many services that can accommodate any workload. Review the [selection guidance](/azure/architecture/guide/technology-choices/technology-choices-overview) for each service type to help you streamline your selection based on your requirements. See the following guides to choose:
 
 - [A region](https://azure.microsoft.com/explore/global-infrastructure/geographies/#choose-your-region)
